@@ -6,6 +6,8 @@ import co.udea.api.hero.repository.HeroRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,6 +27,15 @@ public class HeroService {
             throw new BusinessException("El heroe no existe");
         }
         return optionalHero.get();
+    }
+
+    public Object[] getHeroes(){
+        List<Hero> listHero = heroRepository.findAll();
+        if(listHero.isEmpty()){
+            log.info("No se encuentran heroes registrados");
+            throw new BusinessException("El heroe no existe");
+        }
+        return listHero.toArray();
     }
 
 }

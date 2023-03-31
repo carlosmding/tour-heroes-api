@@ -26,13 +26,19 @@ public class HeroController {
     }
 
     @GetMapping("{id}")
-    @ApiOperation(value = "Busca un hero por su id",  response = Hero.class)
+    @ApiOperation(value = "Busca un heroe por su id",  response = Hero.class)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Hero encontrado existosamente"),
-            @ApiResponse(code = 400, message = "La petición es invalida"),
+            @ApiResponse(code = 200, message = "Heroe encontrado existosamente"),
+            @ApiResponse(code = 400, message = "La petición es inválida"),
             @ApiResponse(code = 500, message = "Error interno al procesar la respuesta")})
     public ResponseEntity<Hero> getHero(@PathVariable Integer id){
-        log.info("Rest request buscar heroe por id: "+ id);
+        log.info("Rest request para buscar un heroe por el id: "+ id);
         return ResponseEntity.ok(heroService.getHero(id));
     }
+
+    public ResponseEntity<Object[]> getHeroes(){
+        log.info("Rest request para buscar todos los heroes");
+        return ResponseEntity.ok(heroService.getHeroes());
+    }
 }
+
