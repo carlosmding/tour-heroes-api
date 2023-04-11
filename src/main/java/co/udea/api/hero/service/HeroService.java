@@ -20,6 +20,7 @@ public class HeroService {
     public HeroService(HeroRepository heroRepository){
         this.heroRepository = heroRepository;
     }
+
     public Hero getHero(Integer id){
         Optional<Hero> optionalHero = heroRepository.findById(id);
         if(!optionalHero.isPresent()){
@@ -29,13 +30,27 @@ public class HeroService {
         return optionalHero.get();
     }
 
-    public Object[] getHeroes(){
-        List<Hero> listHero = heroRepository.findAll();
-        if(listHero.isEmpty()){
-            log.info("No se encuentran heroes registrados");
-            throw new BusinessException("El heroe no existe");
-        }
-        return listHero.toArray();
+    public List<Hero> getHeroes(){
+        List<Hero> heroesList = heroRepository.findAll();
+        return heroesList;
     }
+
+    public List<Hero> searchHeroes(String name){
+        List<Hero> heroesList = heroRepository.findByNameLike("%"+name+"%");
+        return heroesList;
+    }
+
+    public void updateHero (Hero hero){
+        heroRepository.save(hero);
+    }
+
+    public void addHero(Hero hero){
+        heroRepository.save(hero);
+    }
+
+    public void deleteHero (Hero hero){
+        heroRepository.delete(hero);
+    }
+
 
 }
